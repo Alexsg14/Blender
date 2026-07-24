@@ -1,71 +1,38 @@
-# 🧬 PDB Molecule of the Month -> Blender (motm_blender_pro.py)
+# 🎨 Blender 3D Tools & Add-ons
 
-Script en Python para **Blender (4.0+)** que automatiza la obtención, renderizado en 3D y exportación a mallas `.glb` estáticas de la estructura biológica destacada en **RCSB PDB101 ("Molecule of the Month")**.
-
----
-
-## 🚀 Características Principales
-
-- **Scraping Automático de PDB101**: Conecta directamente con la API / Web de RCSB PDB101 para detectar el código PDB de la molécula del mes (con fallback a `7A4W` si falla la red).
-- **Integración con Molecular Nodes**: Utiliza el complemento *Molecular Nodes* para generar la representación en estilo `cartoon`.
-- **Conversión a Malla Estática (`MESH`)**: Aplica y congela automáticamente los modificadores de Geometry Nodes, desacoplando la molécula del addon.
-- **Material Sólido Limpio**: Sustituye shaders complejos por un nodo `Principled BSDF` con un color aleatorio vibrante convertido fielmente de HSV a **Linear RGB**.
-- **Alineación y Centrado**: Reubica el origen del objeto en su centro de masa en el origen `(0, 0, 0)`.
-- **Exportación Automática GLB**: Opciones para exportar directamente archivos `.glb` optimizados para la web o visores 3D.
-- **Compatibilidad Multi-Versión**: Compatible con Blender 3.6, 4.0, 4.1 y **4.2+** (soporta `wm.gltf_export` y `temp_override` en modo headless).
+Colección de scripts en Python, add-ons personalizados y herramientas procedimentales para **Blender (4.0+)**, enfocados principalmente en **visualización científica** (estructuras biológicas, metadinámica, moléculas) y **generación de mapas cartográficos 3D**.
 
 ---
 
-## 🛠️ Requisitos
+## 📂 Contenido del Repositorio
 
-- **Blender 4.0+** (Recomendado 4.2+).
-- **Extension/Add-on Molecular Nodes** instalado en Blender.
-- Conexión a Internet (para scraping y descarga de archivos PDB/CIF).
-
----
-
-## 📖 Uso y Ejecución
-
-### 1. Desde la Interfaz de Blender (GUI)
-1. Abre Blender.
-2. Ve a la pestaña **Text Editor** (Editor de Texto).
-3. Abre el archivo [`motm_blender_pro.py`](file:///home/ciqus/GIT/Github_Personal/Blender/motm_blender_pro.py).
-4. Haz clic en **Run Script** (`Alt + P`).
-
-### 2. Desde la Terminal / Línea de Comandos
-
-- **Modo Interactivo (Abre Blender y ejecuta el script)**:
-  ```bash
-  blender --python motm_blender_pro.py
-  ```
-
-- **Modo Background / Headless (Sin GUI, ideal para servidores y pipelines)**:
-  Para activar la exportación automática a `.glb`, asegúrate de tener `GLB_EXPORT = True` en la configuración del script y ejecuta:
-  ```bash
-  blender -b --python motm_blender_pro.py
-  ```
+| Proyecto | Tipo | Descripción | Link |
+| :--- | :--- | :--- | :--- |
+| **Molecule of the Month** | Script Automatizado | Scraper e importador PDB que convierte estructuras de RCSB PDB101 en mallas estáticas `.glb`. | [`Molecule_Of_The_Month/`](file:///home/ciqus/GIT/Github_Personal/Blender/Molecule_Of_The_Month/) |
+| **Molecule Builder** | Add-on de Blender | Herramienta para construir y animar mallas atómicas (radios CPK) y enlaces dinámicos estirables. | [`_molecules_addon_/`](file:///home/ciqus/GIT/Github_Personal/Blender/_molecules_addon_/) |
+| **Metadynamics Animator** | Add-on de Blender | Visualizador 3D de paisajes de energía libre (PES) y trayectorias de simulación de metadinámica 2D. | [`_metadyn_animator_/`](file:///home/ciqus/GIT/Github_Personal/Blender/_metadyn_animator_/) |
+| **Map Poster Generator** | Generador Procedimental | Generador de pósters 3D cartográficos a partir de datos vectoriales de OpenStreetMap. | [`Map_generator/`](file:///home/ciqus/GIT/Github_Personal/Blender/Map_generator/) |
 
 ---
 
-## ⚙️ Configuración del Script
+## 🛠️ Requisitos Generales
 
-En las primeras líneas de [`motm_blender_pro.py`](file:///home/ciqus/GIT/Github_Personal/Blender/motm_blender_pro.py) puedes ajustar los siguientes parámetros:
-
-```python
-ROUGHNESS       = 1.0    # Rugosidad del material (0.0 a 1.0)
-TRANSMISSION    = 0.0    # Transmisión (0.0 = opaco, 1.0 = cristal/transparente)
-FALLBACK_PDB_ID = "7A4W" # ID PDB alternativo si falla el scraping
-GLB_EXPORT      = False  # Cambiar a True para exportar automáticamente a .glb
-GLB_OUTPUT_DIR  = tempfile.gettempdir() # Directorio de destino para el archivo .glb
-```
+- **Blender 4.0+** (Recomendado Blender 4.2+).
+- **Molecular Nodes** (para las herramientas moleculares).
+- Conexión a Internet (para descarga de PDB/CIF y consultas a OpenStreetMap Overpass API).
 
 ---
 
-## 📂 Estructura del Repositorio
+## 📖 Resumen de Proyectos
 
-El repositorio incluye herramientas adicionales organizadas en subdirectorios:
+### 🧬 [Molecule of the Month](file:///home/ciqus/GIT/Github_Personal/Blender/Molecule_Of_The_Month/README.md)
+Script [`motm_blender_pro.py`](file:///home/ciqus/GIT/Github_Personal/Blender/Molecule_Of_The_Month/motm_blender_pro.py) que detecta el PDB destacado de RCSB PDB101, lo importa en estilo *cartoon*, aplica los modificadores para convertirlo a una malla limpia (`MESH`), le asigna un material sólido en espacio de color Linear RGB y permite exportarlo directamente a `.glb`.
 
-- **[`motm_blender_pro.py`](file:///home/ciqus/GIT/Github_Personal/Blender/motm_blender_pro.py)**: Script automatizado PDB MOTM a MESH/GLB.
-- **[`_molecules_addon_/`](file:///home/ciqus/GIT/Github_Personal/Blender/_molecules_addon_/)**: Addon *Molecule Builder* para construir y animar átomos y enlaces dinámicos en Blender.
-- **[`_metadyn_animator_/`](file:///home/ciqus/GIT/Github_Personal/Blender/_metadyn_animator_/)**: Addon *Metadynamics Animator* para visualizar simulación de metadinámica 2D.
-- **[`Map_generator/`](file:///home/ciqus/GIT/Github_Personal/Blender/Map_generator/)**: Generador de pósters cartográficos 3D con datos de OpenStreetMap.
+### ⚛️ [Molecule Builder Add-on](file:///home/ciqus/GIT/Github_Personal/Blender/_molecules_addon_/README.md)
+Add-on en el N-Panel de Blender ([`molecule_builder.py`](file:///home/ciqus/GIT/Github_Personal/Blender/_molecules_addon_/molecule_builder.py)) que permite crear átomos individuales (H, C, N, O, P, S, F, Cl, Br o personalizados) y unirlos con enlaces sencillos, dobles o triples mediante restricciones `STRETCH_TO` para animaciones reactivas.
+
+### 📈 [Metadynamics Animator Add-on](file:///home/ciqus/GIT/Github_Personal/Blender/_metadyn_animator_/README.md)
+Add-on ([`metadyn_animator.py`](file:///home/ciqus/GIT/Github_Personal/Blender/_metadyn_animator_/metadyn_animator.py)) enfocado en simular la adición de colinas gaussianas de potencial sobre un perfil de energía (PES), animando el movimiento del caminante (*walker*) con cámara y materiales de nivel de presentación.
+
+### 🗺️ [Map Poster Generator](file:///home/ciqus/GIT/Github_Personal/Blender/Map_generator/README.md)
+Sistema de scripts para construir representaciones 3D de ciudades extrusionadas (carreteras, edificios, agua, vegetación) a partir del nombre de una ciudad o coordenadas geográficas.
